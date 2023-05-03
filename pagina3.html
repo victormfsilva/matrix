@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Página 2</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style3.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          showLoading();
+        });
+      
+        function showLoading() {
+          var container = document.querySelector('.container');
+          container.innerHTML = '<div class="text"><span class="blink">⚠️</span> PROCURANDO FALHA <span class="blink">⚠️</span></div><div class="loading"><div></div><div></div><div></div><div></div><div></div></div>';
+          setTimeout(function() {
+            var now = new Date();
+            var validUntil = new Date(now.getTime() + 2 * 60000);
+            var minutes = validUntil.getMinutes() < 10 ? "0" + validUntil.getMinutes() : validUntil.getMinutes();
+            var timeStr = validUntil.getHours() + ":" + minutes;
+            container.innerHTML = '<div class="confirmation">💰 Entrada Confirmada 💰</div><div class="mines">💣 Minas: 2</div><div class="validity">🕑 Válido até: ' + timeStr + '</div><div class="attempts">🔁 Nº de tentativas: 2</div>';
+            var container2 = document.querySelector('.container2');
+            container2.classList.add('container2');
+      
+            function gerarPadrao() {
+              let novoPadrao = "";
+              const quadrado = "🟩";
+              const estrela = "⭐";
+              let contadorEstrelas = 0;
+      
+              for (let i = 0; i < 25; i++) {
+                if (i > 0 && i % 5 === 0) {
+                  novoPadrao += "<br>";
+                }
+                if (Math.random() < 0.25 && contadorEstrelas < 4) {
+                  novoPadrao += estrela;
+                  contadorEstrelas++;
+                } else {
+                  novoPadrao += quadrado;
+                }
+              }
+      
+              container2.innerHTML = novoPadrao + '<div class="loading2"></div>';
+      
+              // Remove o elemento loading2 após 10 segundos
+              setTimeout(function() {
+                var loading2 = document.querySelector('.loading2');
+                loading2.parentNode.removeChild(loading2);
+              }, 2 * 60 * 1000);
+      
+              // Adiciona o botão após 2 minutos
+              setTimeout(function() {
+                var button = document.createElement('button');
+                button.innerHTML = 'ENCONTRAR FALHA';
+                button.classList.add('start-btn');
+                button.addEventListener('click', function() {
+                    window.location.href = 'pagina3.html'; // Redireciona para página3
+                });
+                container2.appendChild(button);
+            }, 2 * 60 * 1000);
+        }
+      
+            gerarPadrao();
+          }, 10000);
+        }
+      </script>
+</head>
+<body>
+	<div class="container">
+	</div>
+	<div class="container2"></div>
+</body>
+</html>
